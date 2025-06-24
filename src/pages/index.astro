@@ -1,0 +1,144 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const pageTitle = "Welcome";
+const pageDescription = "Welcome to our application";
+
+// Handle logout
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+	<main class="home-page">
+		<div class="container">
+			<div id="welcome-message">
+				<h1>Welcome to Our App</h1>
+				<p class="subtitle">Get started by signing in to your account</p>
+				<div class="cta-buttons">
+					<a href="/login" class="btn btn-primary">
+						Sign In
+					</a>
+					<a href="/register" class="btn btn-secondary">
+						Create Account
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<script>
+	// Client-side state management
+	const userJson = localStorage.getItem("user");
+	const token = localStorage.getItem("auth_token");
+	const user = userJson ? JSON.parse(userJson) : null;
+
+	// If authenticated, update the UI
+	if (user) {
+		const welcomeMessage = document.getElementById('welcome-message');
+		if (welcomeMessage) {
+			welcomeMessage.innerHTML = `
+				<h1>Welcome back, ${user.firstName}!</h1>
+				<p class="subtitle">You are now logged in to your account</p>
+				<div class="cta-buttons">
+					<a href="/dashboard" class="btn btn-primary">
+						Go to Dashboard
+					</a>
+					<button class="btn btn-secondary">
+						Logout
+					</button>
+				</div>
+			`;
+		}
+
+		// Handle logout
+		const logoutButton = document.querySelector('.btn-secondary');
+		if (logoutButton) {
+			logoutButton.addEventListener('click', () => {
+				localStorage.removeItem('auth_token');
+				localStorage.removeItem('user');
+				window.location.href = '/';
+			});
+		}
+	}
+
+	// Listen for storage events to handle login/logout from other tabs
+	window.addEventListener("storage", (event) => {
+		if (event.key === "auth_token" || event.key === "user") {
+			window.location.reload();
+		}
+	});
+</script>
+
+<style>
+	.home-page {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 2rem;
+		background-color: #f5f7fa;
+	}
+
+	.container {
+		max-width: 600px;
+	}
+
+	h1 {
+		color: #1a1a1a;
+		margin-bottom: 1rem;
+		font-size: 2.5rem;
+	}
+
+	.subtitle {
+		color: #666;
+		font-size: 1.25rem;
+		margin-bottom: 2rem;
+	}
+
+	.cta-buttons {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	.btn {
+		padding: 0.75rem 1.5rem;
+		border-radius: 4px;
+		font-size: 1rem;
+		font-weight: 500;
+		text-decoration: none;
+		transition: all 0.2s;
+	}
+
+	.btn-primary {
+		background: #0066cc;
+		color: white;
+		border: none;
+	}
+
+	.btn-primary:hover {
+		background: #0052a3;
+	}
+
+	.btn-secondary {
+		background: white;
+		color: #0066cc;
+		border: 1px solid #0066cc;
+	}
+
+	.btn-secondary:hover {
+		background: #f0f7ff;
+	}
+
+	@media (max-width: 480px) {
+		.cta-buttons {
+			flex-direction: column;
+			gap: 0.75rem;
+		}
+
+		.btn {
+			width: 100%;
+		}
+	}
+</style>

@@ -1,17 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-// Check if user is authenticated
-const userJson = typeof window !== "undefined" ? localStorage.getItem("user") : null;
-const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
-
-// If not authenticated, redirect to login
-if (typeof window !== "undefined" && !userJson) {
-	window.location.href = "/login";
+interface User {
+	id: number;
+	firstName: string;
+	lastName: string;
+	username: string;
+	image: string;
+	email: string;
+	name: string;
 }
-
-// Parse user data
-const user = userJson ? JSON.parse(userJson) : null;
 
 // Handle logout
 ---
@@ -20,37 +18,31 @@ const user = userJson ? JSON.parse(userJson) : null;
 	<main class="dashboard">
 		<div class="container">
 			<header class="dashboard-header">
-				<h1>Welcome, {user?.firstName}!</h1>
+				<h1>Welcome!</h1>
 				<button id="logoutBtn" class="btn btn-logout">Logout</button>
 			</header>
-
+			
 			<div class="profile-card">
 				<div class="profile-header">
 					<img
-						src={user?.image || "https://via.placeholder.com/100"}
+						src=""
 						alt="Profile"
 						class="profile-image"
 					/>
 					<div>
-						<h2>{user?.firstName} {user?.lastName}</h2>
-						<p class="username">@{user?.username}</p>
+						<h2></h2>
+						<p class="username"></p>
 					</div>
 				</div>
 
 				<div class="profile-details">
 					<div class="detail-item">
 						<span class="label">User ID:</span>
-						<span class="value">{user?.id}</span>
+						<span class="value"></span>
 					</div>
 					<div class="detail-item">
 						<span class="label">Token (truncated):</span>
-						<span class="value token">
-							{
-								token
-									? `${token.substring(0, 10)}...${token.substring(token.length - 10)}`
-									: "Not available"
-							}
-						</span>
+						<span class="value token"></span>
 					</div>
 				</div>
 			</div>
@@ -63,16 +55,56 @@ const user = userJson ? JSON.parse(userJson) : null;
 </Layout>
 
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
-		const btn = document.getElementById("logoutBtn");
-		if (btn) {
-			btn.addEventListener("click", () => {
-				localStorage.removeItem("auth_token");
-				localStorage.removeItem("user");
-				window.location.href = "/";
-			});
-		}
-	});
+	// Client-side state management
+	const userJson = localStorage.getItem("user");
+	const token: string | null = localStorage.getItem("auth_token");
+	const user: User | null = userJson ? JSON.parse(userJson) : null;
+
+	// If not authenticated, redirect to login
+	if (!userJson) {
+		window.location.href = "/login";
+	}
+
+	// Update the DOM with user data
+	const welcomeElement = document.querySelector('h1');
+	if (welcomeElement) {
+		welcomeElement.textContent = `Welcome, ${user?.firstName}!`;
+	}
+
+	const profileImage = document.querySelector('.profile-image') as HTMLImageElement;
+	if (profileImage) {
+		profileImage.src = user?.image || "https://via.placeholder.com/100";
+	}
+
+	const profileName = document.querySelector('.profile-header div h2');
+	if (profileName) {
+		profileName.textContent = `${user?.firstName} ${user?.lastName}`;
+	}
+
+	const profileUsername = document.querySelector('.profile-header div .username');
+	if (profileUsername) {
+		profileUsername.textContent = `@${user?.username}`;
+	}
+
+	const userIdElement = document.querySelector('.detail-item:nth-child(1) .value');
+	if (userIdElement) {
+		userIdElement.textContent = user?.id;
+	}
+
+	const tokenElement = document.querySelector('.detail-item:nth-child(2) .value');
+	if (tokenElement) {
+		tokenElement.textContent = token ? `${token.substring(0, 10)}...${token.substring(token.length - 10)}` : "Not available";
+	}
+
+	// Handle logout
+	const logoutButton = document.getElementById('logoutBtn');
+	if (logoutButton) {
+		logoutButton.addEventListener('click', () => {
+			localStorage.removeItem('auth_token');
+			localStorage.removeItem('user');
+			window.location.href = '/';
+		});
+	}
 </script>
 
 <style>

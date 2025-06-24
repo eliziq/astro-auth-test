@@ -63,8 +63,13 @@ export const POST: APIRoute = async ({ request }) => {
           user: {
             id: 1,
             email: DEMO_CREDENTIALS.username,
-            name: 'Demo User'
-          }
+            name: 'Demo User',
+            firstName: 'Demo',
+            lastName: 'User',
+            username: DEMO_CREDENTIALS.username,
+            image: 'https://via.placeholder.com/100'
+          },
+          auth_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRlbW8gVXNlciIsImlhdCI6MTYyNjYwMzE3Mn0.1234567890abcdef'
         }),
         {
           status: 200,
@@ -73,7 +78,11 @@ export const POST: APIRoute = async ({ request }) => {
             'Set-Cookie': `user=${encodeURIComponent(JSON.stringify({
               id: 1,
               email: DEMO_CREDENTIALS.username,
-              name: 'Demo User'
+              name: 'Demo User',
+              firstName: 'Demo',
+              lastName: 'User',
+              username: DEMO_CREDENTIALS.username,
+              image: 'https://via.placeholder.com/100'
             }))}; Path=/; HttpOnly; SameSite=Strict`
           }
         }

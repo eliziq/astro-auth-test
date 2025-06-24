@@ -126,6 +126,9 @@ console.log("Form Config:", formConfig);
 				if (data.user) {
 					localStorage.setItem("user", JSON.stringify(data.user));
 				}
+				if (data.auth_token) {
+					localStorage.setItem("auth_token", data.auth_token);
+				}
 
 				// Redirect to dashboard on successful login
 				window.location.href = "/dashboard";
