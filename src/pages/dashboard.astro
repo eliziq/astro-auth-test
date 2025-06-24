@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import LogoutButton from "../components/LogoutButton.astro";
 
 interface User {
 	id: number;
@@ -19,7 +20,7 @@ interface User {
 		<div class="container">
 			<header class="dashboard-header">
 				<h1>Welcome!</h1>
-				<button id="logoutBtn" class="btn btn-logout">Logout</button>
+				<LogoutButton />
 			</header>
 			
 			<div class="profile-card">
@@ -94,16 +95,6 @@ interface User {
 	const tokenElement = document.querySelector('.detail-item:nth-child(2) .value');
 	if (tokenElement) {
 		tokenElement.textContent = token ? `${token.substring(0, 10)}...${token.substring(token.length - 10)}` : "Not available";
-	}
-
-	// Handle logout
-	const logoutButton = document.getElementById('logoutBtn');
-	if (logoutButton) {
-		logoutButton.addEventListener('click', () => {
-			localStorage.removeItem('auth_token');
-			localStorage.removeItem('user');
-			window.location.href = '/';
-		});
 	}
 </script>
 

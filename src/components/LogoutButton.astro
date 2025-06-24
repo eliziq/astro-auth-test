@@ -1,0 +1,22 @@
+---
+// Simple logout button component
+---
+
+<button class="btn btn-secondary">
+  Logout
+</button>
+
+<style>
+  @import "../styles/buttons.css";
+</style>
+
+<script>
+  const button = document.querySelector('.btn-secondary');
+  if (button) {
+    button.addEventListener('click', () => {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
+      window.location.href = '/';
+    });
+  }
+</script>
