@@ -2,16 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import LogoutButton from "../components/LogoutButton.astro";
 
-interface User {
-	id: number;
-	firstName: string;
-	lastName: string;
-	username: string;
-	image: string;
-	email: string;
-	name: string;
-}
-
 import '../styles/dashboard.css';
 ---
 
@@ -56,6 +46,7 @@ import '../styles/dashboard.css';
 </Layout>
 
 <script>
+	import type { User } from '../types';
 	// Client-side state management
 	const userJson = localStorage.getItem("user");
 	const token: string | null = localStorage.getItem("auth_token");
@@ -89,7 +80,7 @@ import '../styles/dashboard.css';
 
 	const userIdElement = document.querySelector('.detail-item:nth-child(1) .value');
 	if (userIdElement) {
-		userIdElement.textContent = user?.id;
+		userIdElement.textContent = user?.id?.toString() || "Not available";
 	}
 
 	const tokenElement = document.querySelector('.detail-item:nth-child(2) .value');

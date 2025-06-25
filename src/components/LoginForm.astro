@@ -1,39 +1,8 @@
 ---
-interface FormField {
-	name: string;
-	type: string;
-	label: string;
-	placeholder?: string;
-	required?: boolean;
-	minLength?: number;
-	value?: string;
-}
+import type { FormField, SubmitButtonConfig, DemoCredentials, FormLink, FormConfig } from '../types/form';
+import type { Config } from '../types/api';
 
-interface SubmitButtonConfig {
-	text: string;
-	loadingText: string;
-}
-
-interface DemoCredentials {
-	enabled: boolean;
-	username: string;
-	password: string;
-}
-
-interface FormLink {
-	href: string;
-	text: string;
-	class: string;
-}
-
-interface FormConfig {
-	fields: FormField[];
-	submitButton: SubmitButtonConfig;
-	demoCredentials: DemoCredentials;
-	links: FormLink[];
-}
-
-const { formConfig } = Astro.props as { formConfig: FormConfig };
+const { formConfig } = Astro.props as { formConfig: Config['formConfig'] };
 console.log("Form Config:", formConfig);
 import '../styles/forms.css';
 ---
