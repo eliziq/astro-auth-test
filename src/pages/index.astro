@@ -1,6 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import LogoutButton from "../components/LogoutButton.astro";
+import '../styles/global.css';
+import '../styles/home.css';
+import '../styles/buttons.css';
 
 const pageTitle = "Welcome";
 const pageDescription = "Welcome to our application";
@@ -53,50 +56,5 @@ const pageDescription = "Welcome to our application";
 		});
 	</script>
 
-	<style>
-		@import "../styles/buttons.css";
 
-		.home-page {
-			min-height: 100vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-			padding: 2rem;
-			background-color: #f5f7fa;
-		}
-
-		.container {
-			max-width: 600px;
-		}
-
-		h1 {
-			color: #1a1a1a;
-			margin-bottom: 1rem;
-			font-size: 2.5rem;
-		}
-
-		.subtitle {
-			color: #666;
-			font-size: 1.25rem;
-			margin-bottom: 2rem;
-		}
-
-		.cta-buttons {
-			display: flex;
-			gap: 1rem;
-			justify-content: center;
-		}
-
-		@media (max-width: 480px) {
-			.cta-buttons {
-				flex-direction: column;
-				gap: 0.75rem;
-			}
-
-			.btn {
-				width: 100%;
-			}
-		}
-	</style>
 </Layout>

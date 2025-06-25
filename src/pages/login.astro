@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import LoginForm from '../components/LoginForm.astro';
 import config from '../pages/api/config.json';
+import '../styles/global.css';
+import '../styles/login.css';
 
 // Set page metadata
 const pageTitle = 'Login';
@@ -17,42 +19,3 @@ const pageDescription = 'Sign in to your account';
     </div>
   </main>
 </Layout>
-
-<style>
-  .login-page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background-color: #f5f7fa;
-  }
-  
-  .container {
-    width: 100%;
-    max-width: 480px;
-    text-align: center;
-  }
-  
-  h1 {
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
-  }
-  
-  .subtitle {
-    color: #666;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-  }
-  
-  @media (max-width: 480px) {
-    .login-page {
-      padding: 1rem;
-    }
-    
-    h1 {
-      font-size: 1.75rem;
-    }
-  }
-</style>

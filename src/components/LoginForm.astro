@@ -35,10 +35,11 @@ interface FormConfig {
 
 const { formConfig } = Astro.props as { formConfig: FormConfig };
 console.log("Form Config:", formConfig);
+import '../styles/forms.css';
 ---
 
 <form class="login-form" id="loginForm" onsubmit="return false;">
-	<div id="error-message" class="error-message" style="display: none;"></div>
+	<div id="error-message" class="error-message"></div>
 	{
 		formConfig.fields.map((field) => (
 			<div class="form-group">
@@ -54,7 +55,7 @@ console.log("Form Config:", formConfig);
 					class="form-control"
 				/>
 			</div>
-		))
+	))
 	}
 
 	<button type="submit" class="btn btn-primary">
@@ -102,7 +103,6 @@ console.log("Form Config:", formConfig);
 					submitButton.disabled = true;
 					submitButton.textContent = "Signing in...";
 				}
-
 				if (errorMessage) {
 					errorMessage.textContent = "";
 					errorMessage.style.display = "none";
@@ -149,105 +149,3 @@ console.log("Form Config:", formConfig);
 		});
 	});
 </script>
-
-<style>
-	.login-form {
-		max-width: 400px;
-		margin: 0 auto;
-		padding: 2rem;
-		border-radius: 8px;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-		background: white;
-	}
-
-	.form-group {
-		margin-bottom: 1.5rem;
-	}
-
-	label {
-		display: block;
-		margin-bottom: 0.5rem;
-		font-weight: 500;
-	}
-
-	.form-control {
-		width: 100%;
-		padding: 0.75rem;
-		border: 1px solid #ddd;
-		border-radius: 4px;
-		font-size: 1rem;
-	}
-
-	.btn {
-		display: block;
-		width: 100%;
-		padding: 0.75rem;
-		background: #0066cc;
-		color: white;
-		border: none;
-		border-radius: 4px;
-		font-size: 1rem;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	.btn:hover {
-		background: #0052a3;
-	}
-
-	.form-footer {
-		margin-top: 1.5rem;
-		padding-top: 1rem;
-		border-top: 1px solid #eee;
-		display: flex;
-		justify-content: space-between;
-		font-size: 0.9rem;
-	}
-
-	.forgot-password {
-		color: #666;
-		text-decoration: none;
-	}
-
-	.forgot-password:hover {
-		text-decoration: underline;
-	}
-
-	.error-message {
-		color: #dc3545;
-		background-color: #f8d7da;
-		border: 1px solid #f5c6cb;
-		padding: 0.75rem;
-		border-radius: 4px;
-		margin-bottom: 1rem;
-		display: none;
-	}
-
-	.demo-credentials {
-		margin-top: 1.5rem;
-		padding-top: 1rem;
-		border-top: 1px solid #eee;
-		font-size: 0.9rem;
-		color: #666;
-	}
-
-	.demo-credentials p {
-		margin: 0.25rem 0;
-	}
-
-	.demo-credentials code {
-		background: #f5f5f5;
-		padding: 0.2rem 0.4rem;
-		border-radius: 3px;
-		font-family: monospace;
-	}
-
-	a {
-		color: #0066cc;
-		text-decoration: none;
-	}
-
-	a:hover {
-		text-decoration: underline;
-	}
-</style>
