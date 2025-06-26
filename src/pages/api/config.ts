@@ -1,58 +1,55 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async () => {
-  const config = {
-    formConfig: {
-      fields: [
-        {
-          name: "username",
-          type: "text",
-          label: "Username",
-          placeholder: "Enter your username",
-          required: true,
-          value: "kminchelle"
-        },
-        {
-          name: "password",
-          type: "password",
-          label: "Password",
-          placeholder: "Enter your password",
-          required: true,
-          minLength: 8,
-          value: "0lelplR"
-        }
-      ],
-      submitButton: {
-        text: "Sign In",
-        loadingText: "Signing in..."
-      },
-      demoCredentials: {
-        enabled: true,
-        username: "kminchelle",
-        password: "0lelplR"
-      },
-      links: [
-        {
-          href: "/forgot-password",
-          text: "Forgot password?",
-          class: "forgot-password"
-        },
-        {
-          href: "/register",
-          text: "Sign up",
-          class: "signup-link"
-        }
-      ]
-    }
-  };
+	const config = {
+		formConfig: {
+			fields: [
+				{
+					name: "username",
+					type: "text",
+					label: "Username",
+					placeholder: "Enter your username",
+					required: true,
+					value: "roboticket",
+				},
+				{
+					name: "password",
+					type: "password",
+					label: "Password",
+					placeholder: "Enter your password",
+					required: true,
+					minLength: 8,
+					value: "Robo123",
+				},
+			],
+			submitButton: {
+				text: "Sign In",
+				loadingText: "Signing in...",
+			},
+			demoCredentials: {
+				enabled: true,
+				username: "roboticket",
+				password: "Robo123",
+			},
+			links: [
+				{
+					href: "/forgot-password",
+					text: "Forgot password?",
+					class: "forgot-password",
+				},
+				{
+					href: "/register",
+					text: "Sign up",
+					class: "signup-link",
+				},
+			],
+		},
+	};
 
-  return new Response(
-    JSON.stringify(config),
-    {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-  );
+	return new Response(JSON.stringify(config), {
+		status: 200,
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
 };
